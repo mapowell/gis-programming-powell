@@ -1,0 +1,75 @@
+
+import torch
+import os
+import json
+import warnings
+from transformers import AutoModelForCausalLM, AutoTokenizer
+from dotenv import load_dotenv
+
+# Load environment variables from .env
+load_dotenv()
+
+MODEL_ID = os.getenv("MODEL_ID", "Meta-Llama-3-8B-Instruct")  # Now defaults to Meta-Llama-3-8B-Instruct
+HF_TOKEN = os.getenv("HUGGINGFACE_HUB_TOKEN")
+
+# Enable trust_remote_code for models like meta-llama
+tokenizer = AutoTokenizer.from_pretrained(MODEL_ID, trust_remote_code=True)
+_model = None  # Lazy-load the model
+
+# Optionally, filter out the pytree warning:
+warnings.filterwarnings("ignore", category=FutureWarning, message=".*_register_pytree_node.*")
+
+def get_model():
+    global _model
+    if (_model is None):
+        # Removed BitsAndBytesConfig since Meta-Llama-3-8B-Instruct loads in full precision.
+        _model = AutoModelForCausalLM.from_pretrained(
+            MODEL_ID,
+            trust_remote_code=True,
+            device_map="auto"
+        )
+    return _model
+
+def parse_query_with_llama(query: str) -> dict:
+    prompt = f"""
+You are a real estate assistant. Your job is to convert the user's request into a valid JSON object using the exact format below.
+Output ONLY the JSON object and no other text.
+Your entire output must consist of the following:
+<<<JSON_START>>>
+{{ 
+  "layer": "<string>",
+  "filters": {{
+    "fire_risk": "<string>",
+    "price": {{ "lt": <number> }}
+  }}
+}}
+<<<JSON_END>>>
+Do not include any extra text, explanations, or characters.
+User: {query}
+"""
+    inputs = tokenizer.encode(prompt, return_tensors="pt")
+    try:
+        with torch.no_grad():
+            model = get_model()
+            device = next(model.parameters()).device
+            inputs = inputs.to(device)
+            outputs = model.generate(
+                inputs, max_new_tokens=150, do_sample=True, temperature=0.7
+            )
+    except Exception as e:
+        return {"error": f"Model generation failed: {str(e)}"}
+      
+    generated_text = tokenizer.decode(outputs[0], skip_special_tokens=True)
+    
+    # Extract text between the markers
+    start_marker = "<<<JSON_START>>>"
+    end_marker = "<<<JSON_END>>>"
+    start_pos = generated_text.find(start_marker)
+    end_pos = generated_text.find(end_marker, start_pos)
+    if start_pos != -1 and end_pos != -1:
+        json_str = generated_text[start_pos + len(start_marker):end_pos].strip()
+        try:
+            return json.loads(json_str)
+        except json.JSONDecodeError:
+            return {"error": "Failed to parse JSON output from model.", "raw": generated_text}
+    return {"error": "No JSON output found.", "raw": generated_text}
