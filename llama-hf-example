@@ -1,3 +1,26 @@
+"""
+llama_parser.py
+----------------------------------------------------
+This script defines the `LlamaQueryParser` class, which wraps a LLaMA language model
+using Hugging Face Transformers to convert natural language real estate queries into
+structured JSON.
+
+It builds a prompt, sends it to the model, and extracts a clean JSON response 
+between <<<JSON_START>>> and <<<JSON_END>>> markers.
+
+This tool is designed for use in applications like AI-powered search engines,
+where structured input is required from unstructured user queries.
+
+Required environment variables:
+- MODEL_ID: Hugging Face model identifier (defaults to Meta-Llama-3-8B-Instruct)
+- HUGGINGFACE_HUB_TOKEN: Optional Hugging Face access token (for gated models)
+
+Dependencies:
+- torch
+- transformers
+- dotenv
+"""
+
 import os
 import json
 import torch
