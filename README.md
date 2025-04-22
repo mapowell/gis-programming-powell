@@ -1,4 +1,5 @@
-[Example_QA_QC_Log_Table.csv](https://github.com/user-attachments/files/19857197/Example_QA_QC_Log_Table.csv)# gis-programming-powell
+
+[📂 Example_QA_QC_Log_Table.csv](https://github.com/user-attachments/files/19857197/Example_QA_QC_Log_Table.csv)
 
 # QA/QC Toolkit for Air Quality GIS Data
 
@@ -13,14 +14,15 @@ Stores all flagged QA/QC issues for tracking and auditing.
 
 ```sql
 CREATE TABLE IF NOT EXISTS aqi_qaqc_issues (
-    issue_id SERIAL PRIMARY KEY,                 -- Unique identifier for each issue
-    sensor_id TEXT,                              -- Identifier for the sensor reporting the issue
-    timestamp TIMESTAMP,                         -- Timestamp of the issue occurrence
-    issue_type TEXT,                             -- Type/category of the issue (e.g., missing data, out-of-range value)
-    issue_details TEXT,                          -- Detailed description of the issue
-    created_at TIMESTAMP DEFAULT now()           -- Timestamp when the issue was logged
+    issue_id SERIAL PRIMARY KEY,
+    sensor_id TEXT,
+    timestamp TIMESTAMP,
+    issue_type TEXT,
+    issue_details TEXT,
+    created_at TIMESTAMP DEFAULT now()
 );
 ```
+
 | issue_id | sensor_id | timestamp           | issue_type    | issue_details                         | created_at           |
 |----------|-----------|---------------------|---------------|----------------------------------------|----------------------|
 | 1        | AQ101     | 2025-04-22 18:36:14 | Missing Data  | No AQI reading at 3 AM                | 2025-04-22 18:51:14  |
@@ -30,8 +32,6 @@ CREATE TABLE IF NOT EXISTS aqi_qaqc_issues (
 ---
 
 ## 2. View: Check for NULL Values
-
-Encapsulates logic for checking missing key fields.
 
 ```sql
 CREATE OR REPLACE VIEW aqi_missing_values AS
@@ -46,8 +46,6 @@ WHERE aqi_value IS NULL
 
 ## 3. View: Out-of-Range AQI Values
 
-Flags AQI values outside the valid range (0–500).
-
 ```sql
 CREATE OR REPLACE VIEW aqi_out_of_range AS
 SELECT *
@@ -59,8 +57,6 @@ WHERE aqi_value < 0 OR aqi_value > 500;
 
 ## 4. View: Duplicate Records
 
-Detects duplicate records by sensor and timestamp.
-
 ```sql
 CREATE OR REPLACE VIEW aqi_duplicates AS
 SELECT sensor_id,
@@ -70,6 +66,7 @@ FROM aqi_readings
 GROUP BY sensor_id, timestamp
 HAVING COUNT(*) > 1;
 ```
+
 <h3>📊 Figure: Duplicate Record Count by Sensor</h3>
 
 <img src="https://github.com/user-attachments/assets/4f0ad5ab-52c7-43d5-9cc1-2bf5872dff96" 
@@ -84,22 +81,27 @@ This figure displays how frequently each sensor recorded duplicate AQI readings 
 
 ## 5. View: Points Outside Designated Region
 
-Requires `region_boundary` polygon layer.
-
 ```sql
-### 🗺️ Figure: Points Outside Designated Region
+CREATE OR REPLACE VIEW aqi_outside_boundary AS
+SELECT aqi.*
+FROM aqi_readings aqi
+LEFT JOIN region_boundary rb ON ST_Within(aqi.geom, rb.geom)
+WHERE rb.geom IS NULL;
+```
+
+<h3>🗺️ Figure: Points Outside Designated Region</h3>
 
 <img src="https://github.com/user-attachments/assets/1c31ba08-df7b-416f-b191-680b81eea7d6" 
      alt="Points Outside Designated Region" 
      width="500"/>
 
-This map shows air quality sensors in relation to a designated boundary. Blue markers indicate valid readings within the boundary, while red markers represent spatial errors — sensors located outside the allowed region as identified by the `ST_Within()` spatial check.
+<p style="margin-top: 0.5em;">
+This map shows air quality sensors in relation to a designated boundary. Blue markers indicate valid readings within the boundary, while red markers represent spatial errors — sensors located outside the allowed region as identified by the <code>ST_Within()</code> spatial check.
+</p>
 
 ---
 
 ## 6. Function: Get Missing Hourly Readings
-
-Detects which hourly intervals are missing for each sensor in the past 24 hours.
 
 ```sql
 CREATE OR REPLACE FUNCTION get_missing_hourly_readings()
@@ -135,8 +137,6 @@ $$ LANGUAGE plpgsql;
 
 ## 7. View: QA/QC Summary
 
-Returns summary metrics for dashboards or reports.
-
 ```sql
 CREATE OR REPLACE VIEW aqi_qaqc_summary AS
 SELECT
@@ -151,8 +151,6 @@ FROM aqi_readings;
 
 ## 8. Indexing
 
-Ensure efficient query performance, especially for spatial checks.
-
 ```sql
 CREATE INDEX IF NOT EXISTS idx_aqi_geom ON aqi_readings USING GIST (geom);
 CREATE INDEX IF NOT EXISTS idx_aqi_sensor_time ON aqi_readings (sensor_id, timestamp);
@@ -161,4 +159,3 @@ CREATE INDEX IF NOT EXISTS idx_aqi_sensor_time ON aqi_readings (sensor_id, times
 ---
 
 **End of QA/QC Toolkit**
-
