@@ -132,6 +132,18 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 ```
+### ⏱️ Figure: Missing Hourly Readings by Sensor
+
+<img src="https://github.com/user-attachments/assets/2dd52c12-4022-457e-92a3-5eb57c6966cf"
+     alt="Missing Hourly Readings by Sensor"
+     width="600"/>
+
+This heatmap visualizes hourly AQI data completeness for five sensors over the last 24 hours.  
+Each row corresponds to a sensor, and each column to an hour.  
+- **Blue cells** = valid readings  
+- **White cells** = missing data
+
+This visual complements the `get_missing_hourly_readings()` function by providing a quick-glance view of time-series gaps in monitoring data.
 
 ---
 
