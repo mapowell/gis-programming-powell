@@ -1,4 +1,4 @@
-# gis-programming-powell
+[Example_QA_QC_Log_Table.csv](https://github.com/user-attachments/files/19857197/Example_QA_QC_Log_Table.csv)# gis-programming-powell
 
 # QA/QC Toolkit for Air Quality GIS Data
 
@@ -36,6 +36,11 @@ WHERE aqi_value IS NULL
    OR timestamp IS NULL
    OR sensor_id IS NULL;
 ```
+[Uploadingissue_id,sensor_id,timestamp,issue_type,issue_details,created_at
+1,AQ101,2025-04-22 18:36:14.684995,Missing Data,No AQI reading at 3 AM,2025-04-22 18:51:14.685008
+2,AQ204,2025-04-22 19:36:14.685005,Out-of-Range,AQI value reported as 999,2025-04-22 19:46:14.685011
+3,AQ305,2025-04-22 20:36:14.685006,Spatial Error,Point recorded outside region boundary,2025-04-22 21:06:14.685013
+ Example_QA_QC_Log_Table.csv…]()
 
 ---
 
