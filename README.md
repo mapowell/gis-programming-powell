@@ -158,6 +158,19 @@ SELECT
   COUNT(*) FILTER (WHERE timestamp IS NULL) AS null_timestamps
 FROM aqi_readings;
 ```
+### 📊 Figure: QA/QC Summary of AQI Readings
+
+<img src="https://github.com/user-attachments/assets/de14f6fa-5df6-4a77-923d-468a8716f27e"
+     alt="QA/QC Summary Pie Chart"
+     width="450"/>
+
+This pie chart summarizes the quality assurance status of AQI data records:
+- **Valid Records**: Successfully recorded and usable (88%)
+- **Missing AQI**: AQI value was not captured (4%)
+- **Out-of-Range AQI**: AQI value was outside EPA’s accepted range (6%)
+- **Missing Timestamps**: Time of record was not logged (2%)
+
+The figure corresponds to the `aqi_qaqc_summary` SQL view and gives a high-level overview of data quality distribution in the dataset.
 
 ---
 
