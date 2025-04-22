@@ -1,71 +1,124 @@
 
-# 🧠 Lottly AI Toolkit: GIS + AI Modules
+# 🧠 GIS Programming Toolkit – Powell
 
-This repository contains production-ready modules used in the Lottly AI system for geospatial data interaction, AI-powered search parsing, and UI-based feature editing. The toolkit includes:
-
----
-
-## 📂 Contents
-
-| File/Component         | Description                                                                 |
-|------------------------|-----------------------------------------------------------------------------|
-| `llama_parser.py`      | Uses Meta LLaMA to convert natural language real estate queries into JSON   |
-| `BatchEditor.tsx`      | ArcGIS Experience Builder widget to select and batch-edit features on a map |
-| `MapView.tsx`          | React/Mapbox-based viewer with marker and viewport tracking for location UI |
+Welcome to the GIS + AI toolkit repository developed by [Matthew Powell](https://www.linkedin.com/in/matthew-powell-map/). This repo includes modular, production-ready tools for geospatial analysis, AI-powered query parsing, and client-side GIS feature editing.
 
 ---
 
-## 📌 Modules Overview
-
-### 🧠 `llama_parser.py`
-- Wraps a Hugging Face LLaMA model
-- Converts user queries like “lots under 500k in flood zones” into structured JSON
-- Used to drive filters and logic in AI search environments
-
-📄 Full documentation: [llama_parser_documentation.md](./llama_parser_documentation.md)
-
----
-
-### 🛠️ `BatchEditor.tsx`
-- Used in ArcGIS Experience Builder
-- Lets users draw polygons to select features and apply batch field edits
-- Useful for QA, cleanup, and mass attribute correction workflows
-
-📄 Full documentation: [batch_editor_documentation.md](./batch_editor_documentation.md)
-
----
-
-### 🗺️ `MapView.tsx`
-- React map component built with `react-map-gl`
-- Includes zoom/pan/marker UI
-- Automatically updates if latitude/longitude props change
-
-📄 Full documentation: [mapview_documentation.md](./mapview_documentation.md)
-
----
-
-## 📦 Installation
+## 📦 Project Structure
 
 ```bash
-# LLM support
-pip install torch transformers python-dotenv
-
-# Front-end & GIS tools
-npm install react-map-gl mapbox-gl
+gis-programming-powell/
+│
+├── llama_parser/           # LLaMA-based natural language parser
+│   ├── llama_parser.py
+│   └── llama_parser_documentation.md
+│
+├── batch_editor/           # ArcGIS Experience Builder widget
+│   ├── BatchEditor.tsx
+│   └── batch_editor_documentation.md
+│
+├── map_viewer/             # Mapbox map component using React
+│   ├── MapView.tsx
+│   └── mapview_documentation.md
+│
+├── examples/               # Preview HTML and UI figures
+│   ├── mapview_preview.html
+│   └── screenshots/
+│       ├── batch_editor_ui.png
+│       ├── missing_hourly_heatmap.png
+│       └── summary_pie_chart.png
+│
+├── .env.example            # Example .env for environment setup
+├── README.md
+└── LICENSE
 ```
-
-> Ensure you also include your `.env` file with the appropriate environment variables (e.g., `MODEL_ID`, `HUGGINGFACE_HUB_TOKEN`, `NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN`).
 
 ---
 
-## 🧠 Use This Repo If You Want To...
-- Build AI assistants that convert language into filters
-- Let GIS analysts edit layers visually in the browser
-- Render fast, token-aware maps inside React apps
+## 🧠 Module Highlights
+
+### `llama_parser.py`
+> AI-powered parser for real estate search inputs
+
+- Converts natural language queries into structured JSON filters
+- Uses Meta LLaMA via Hugging Face
+- Ideal for search interfaces or AI-powered GIS tools  
+📄 [View Docs](./llama_parser/llama_parser_documentation.md)
+
+---
+
+### `BatchEditor.tsx`
+> A visual QA/QC tool for ArcGIS Experience Builder
+
+- Draw shapes to select features
+- Batch-edit attribute fields
+- Built using `@arcgis/core` and `React`  
+📄 [View Docs](./batch_editor/batch_editor_documentation.md)
+
+---
+
+### `MapView.tsx`
+> Lightweight map viewer with marker and controls
+
+- Uses `react-map-gl` and `mapbox-gl`
+- Displays dynamic location updates via props
+- Emits viewport changes to parent component  
+📄 [View Docs](./map_viewer/mapview_documentation.md)
+
+---
+
+## ⚙️ Setup
+
+### Backend (LLaMA Parser)
+```bash
+cd llama_parser
+pip install torch transformers python-dotenv
+python llama_parser.py
+```
+
+### Frontend (Map + Editor)
+```bash
+cd map_viewer
+npm install react-map-gl mapbox-gl
+npm run dev
+```
+
+> For `BatchEditor.tsx`, include the component in your ArcGIS Experience Builder project manually.
+
+---
+
+## 🔐 Environment Variables
+
+Create a `.env` file at the root with:
+
+```env
+# Hugging Face (LLaMA)
+MODEL_ID=Meta-Llama-3-8B-Instruct
+HUGGINGFACE_HUB_TOKEN=your_token_here
+
+# Mapbox (MapView.tsx)
+NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN=your_mapbox_token_here
+```
+
+---
+
+## 📸 UI Previews
+
+![Batch Editor](./examples/screenshots/batch_editor_ui.png)
+![Heatmap](./examples/screenshots/missing_hourly_heatmap.png)
+![Pie Chart](./examples/screenshots/summary_pie_chart.png)
+
+---
+
+## 🤝 Author
+
+**Matthew Powell**  
+Geospatial + AI Developer  
+[LinkedIn](https://www.linkedin.com/in/matthew-powell-map/) | [Website (Coming Soon)]()
 
 ---
 
 ## 📄 License
 
-MIT — use freely and adapt for your own GIS + AI systems.
-
+MIT — free to use, modify, and share.
