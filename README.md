@@ -86,20 +86,14 @@ This figure displays how frequently each sensor recorded duplicate AQI readings 
 
 Requires `region_boundary` polygon layer.
 
-```sql
-CREATE OR REPLACE VIEW aqi_outside_boundary AS
-SELECT aqi.*
-FROM aqi_readings aqi
-LEFT JOIN region_boundary rb ON ST_Within(aqi.geom, rb.geom)
-WHERE rb.geom IS NULL;
 ```
 ### 🗺️ Figure: Points Outside Designated Region
 
-### 🗺️ Figure: Points Outside Designated Region
+<img src="https://github.com/user-attachments/assets/1c31ba08-df7b-416f-b191-680b81eea7d6" 
+     alt="Points Outside Designated Region" 
+     width="500"/>
 
-![Points Outside Region](5d506913-2324-4240-af87-d51d33386029.png)
-
-This map shows air quality sensors inside and outside a designated boundary. Blue markers are valid; red markers are flagged for spatial error.
+This map shows air quality sensors in relation to a designated boundary. Blue markers indicate valid readings within the boundary, while red markers represent spatial errors — sensors located outside the allowed region as identified by the `ST_Within()` spatial check.
 
 ---
 
