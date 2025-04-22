@@ -1,85 +1,74 @@
 
-# 🧠 Lottly AI Toolkit: GIS + AI Modules
+# 🧠 GIS Programming Toolkit – Powell
 
-This repository contains production-ready modules used in the Lottly AI system for geospatial data interaction, AI-powered search parsing, UI-based feature editing, and geospatial QA/QC workflows.
+This repository contains modular, production-ready tools for geospatial data analysis, AI-powered natural language parsing, and interactive map applications using Mapbox and ArcGIS.
 
 ---
 
-## 📂 Contents
+## 📂 Repository Contents
 
 | File/Component                          | Description                                                                 |
 |-----------------------------------------|-----------------------------------------------------------------------------|
-| `llama_parser.py`                       | Uses Meta LLaMA to convert natural language real estate queries into JSON   |
-| `BatchEditor.tsx`                       | ArcGIS Experience Builder widget to select and batch-edit features on a map |
-| `MapView.tsx`                           | React/Mapbox-based viewer with marker and viewport tracking                 |
-| `aqi_qaqc_toolkit.md`                   | SQL-based QA/QC toolkit for spatial datasets in PostGIS                     |
+| [`llama_parser.py`](https://github.com/mapowell/gis-programming-powell/blob/main/llama_parser.py)         | Wraps Meta-LLaMA via Hugging Face to parse real estate queries into JSON    |
+| [`llama_parser_documentation.md`](https://github.com/mapowell/gis-programming-powell/blob/main/llama_parser_documentation.md) | Documentation for how the parser works and how to run it                   |
+| [`BatchEditor.tsx`](https://github.com/mapowell/gis-programming-powell/blob/main/BatchEditor.tsx)         | ArcGIS Experience Builder widget for spatial selection and batch editing    |
+| [`batch_editor_documentation.md`](https://github.com/mapowell/gis-programming-powell/blob/main/batch_editor_documentation.md) | Setup and explanation of the batch editing workflow                         |
+| [`MapView.tsx`](https://github.com/mapowell/gis-programming-powell/blob/main/MapView.tsx)                 | React component that renders a Mapbox map with marker support               |
+| [`mapview_documentation.md`](https://github.com/mapowell/gis-programming-powell/blob/main/mapview_documentation.md) | Details the setup, props, and usage of the `MapView` component             |
+| [`README.md`](https://github.com/mapowell/gis-programming-powell/blob/main/README.md)                     | This file – summary and structure of the repo                               |
 
 ---
 
-## 📌 Modules Overview
+## 🧠 Module Highlights
 
-### 🧠 `llama_parser.py`
-- Wraps a Hugging Face LLaMA model
-- Converts user queries like “lots under 500k in flood zones” into structured JSON
-- Used to drive filters and logic in AI search environments  
-📄 [View Docs](https://github.com/mapowell/gis-programming-powell/blob/main/llama_parser_documentation.md)
+### `llama_parser.py`
+- Converts natural language queries into structured real estate search JSON
+- Uses Meta-LLaMA via Hugging Face + Transformers
+- Handles formatting, retries, and environment token loading
 
----
+### `BatchEditor.tsx`
+- Interactive tool for selecting features via drawn geometry
+- Batch-updates attributes in ArcGIS Online layers
+- Useful in QA/QC or post-processing workflows
 
-### 🛠️ `BatchEditor.tsx`
-- Used in ArcGIS Experience Builder
-- Lets users draw polygons to select features and apply batch field edits
-- Useful for QA, cleanup, and mass attribute correction workflows  
-📄 [View Docs](https://github.com/mapowell/gis-programming-powell/blob/main/batch_editor_documentation.md)
-
----
-
-### 🗺️ `MapView.tsx`
-- React map component built with `react-map-gl`
-- Includes zoom/pan/marker UI
-- Automatically updates if latitude/longitude props change  
-📄 [View Docs](https://github.com/mapowell/gis-programming-powell/blob/main/mapview_documentation.md)
+### `MapView.tsx`
+- Simple Mapbox map with marker and viewport tracking
+- Built with `react-map-gl` and `mapbox-gl`
+- Uses a .env token and handles errors with a `Logger` utility
 
 ---
 
-### 🧪 `aqi_qaqc_toolkit.md`
-- SQL-driven quality control system for spatial and air quality datasets
-- Includes views for:
-  - Missing values
-  - Out-of-range values
-  - Duplicate entries
-  - Spatial outliers using `ST_Within()`
-- Includes `get_missing_hourly_readings()` function for sensor gap detection
-- Includes summary view + pie chart and heatmap visuals  
-📄 [View Docs](https://github.com/mapowell/gis-programming-powell/blob/main/aqi_qaqc_toolkit.md)
+## ⚙️ Setup Instructions
 
----
+### Install Dependencies
 
-## 📦 Installation
-
+**For LLaMA Parser:**
 ```bash
-# LLM support
 pip install torch transformers python-dotenv
+```
 
-# Front-end & GIS tools
+**For Map Components:**
+```bash
 npm install react-map-gl mapbox-gl
 ```
 
-> Ensure you also include your `.env` file with the appropriate environment variables:
-> - `MODEL_ID`
-> - `HUGGINGFACE_HUB_TOKEN`
-> - `NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN`
-
 ---
 
-## 🧠 Use This Repo If You Want To...
-- Build AI assistants that convert language into filters
-- Let GIS analysts edit layers visually in the browser
-- Run QA/QC validation on spatial datasets
-- Render token-aware maps in a modular React app
+## 🔐 Environment Variables
+
+Create a `.env` file in the project root with the following:
+
+```env
+# LLaMA parser settings
+MODEL_ID=Meta-Llama-3-8B-Instruct
+HUGGINGFACE_HUB_TOKEN=your_token_here
+
+# Mapbox token for MapView
+NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN=your_mapbox_token_here
+```
 
 ---
 
 ## 📄 License
 
-MIT — use freely and adapt for your own GIS + AI systems.
+MIT — use freely and adapt for your own geospatial AI workflows.
