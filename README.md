@@ -93,6 +93,13 @@ FROM aqi_readings aqi
 LEFT JOIN region_boundary rb ON ST_Within(aqi.geom, rb.geom)
 WHERE rb.geom IS NULL;
 ```
+### 🗺️ Figure: Points Outside Designated Region
+
+<img src="https://github.com/user-attachments/assets/49e68d38-780f-485a-9d34-0de2fd88a362" 
+     alt="Points Outside Designated Region" 
+     width="500"/>
+
+This map visualizes air quality monitoring locations, highlighting sensors that fall outside the designated spatial boundary. The blue markers represent valid points within the green polygon, while red markers indicate spatial errors flagged by the QA/QC system.
 
 ---
 
