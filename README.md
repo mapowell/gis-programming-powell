@@ -70,11 +70,15 @@ FROM aqi_readings
 GROUP BY sensor_id, timestamp
 HAVING COUNT(*) > 1;
 ```
-### 📊 Figure: Duplicate Record Count by Sensor
+<h3>📊 Figure: Duplicate Record Count by Sensor</h3>
 
-<img src=![7c168434-77fb-4fed-9a62-069abc921c25](https://github.com/user-attachments/assets/4f0ad5ab-52c7-43d5-9cc1-2bf5872dff96) alt="Duplicate Record Count by Sensor" width="500"/>
+<img src="https://github.com/user-attachments/assets/4f0ad5ab-52c7-43d5-9cc1-2bf5872dff96" 
+     alt="Duplicate Record Count by Sensor" 
+     width="450"/>
 
-This figure shows the number of duplicate air quality readings recorded by each sensor over a given time period.
+<p style="margin-top: 0.5em;">
+This figure displays how frequently each sensor recorded duplicate AQI readings for the same timestamp. High counts may indicate data submission errors or faulty device behavior.
+</p>
 
 ---
 
