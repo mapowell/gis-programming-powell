@@ -95,14 +95,11 @@ WHERE rb.geom IS NULL;
 ```
 ### 🗺️ Figure: Points Outside Designated Region
 
-<img src="![5d506913-2324-4240-af87-d51d33386029](https://github.com/user-attachments/assets/c0c6e4f8-71ac-413d-8424-e1e26513339d)
-![Uploading image.png…]()
+### 🗺️ Figure: Points Outside Designated Region
 
-" 
-     alt="Points Outside Designated Region" 
-     width="500"/>
+![Points Outside Region](5d506913-2324-4240-af87-d51d33386029.png)
 
-This map visualizes air quality monitoring locations, highlighting sensors that fall outside the designated spatial boundary. The blue markers represent valid points within the green polygon, while red markers indicate spatial errors flagged by the QA/QC system.
+This map shows air quality sensors inside and outside a designated boundary. Blue markers are valid; red markers are flagged for spatial error.
 
 ---
 
