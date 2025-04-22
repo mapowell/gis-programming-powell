@@ -95,7 +95,9 @@ WHERE rb.geom IS NULL;
 ```
 ### 🗺️ Figure: Points Outside Designated Region
 
-<img src="![image](https://github.com/user-attachments/assets/f3e46e77-4274-4434-88cc-da09dd457d64)
+<img src="![5d506913-2324-4240-af87-d51d33386029](https://github.com/user-attachments/assets/c0c6e4f8-71ac-413d-8424-e1e26513339d)
+![Uploading image.png…]()
+
 " 
      alt="Points Outside Designated Region" 
      width="500"/>
