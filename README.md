@@ -70,11 +70,7 @@ FROM aqi_readings
 GROUP BY sensor_id, timestamp
 HAVING COUNT(*) > 1;
 ```
-### 📊 Figure: Duplicate Record Count by Sensor
-
-![Duplicate Record Count by Sensor](section4_duplicate_figure.png)
-
-This bar chart visualizes how many times each sensor reported duplicate AQI readings for the same timestamp.
+![7c168434-77fb-4fed-9a62-069abc921c25](https://github.com/user-attachments/assets/4f0ad5ab-52c7-43d5-9cc1-2bf5872dff96)
 
 ---
 
