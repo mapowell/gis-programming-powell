@@ -7,12 +7,12 @@ This repository contains production-ready modules used in the Lottly AI system f
 
 ## 📂 Contents
 
-| File/Component                     | Description                                                                 |
-|------------------------------------|-----------------------------------------------------------------------------|
-| `llama_parser/llama_parser.py`     | Uses Meta LLaMA to convert natural language real estate queries into JSON   |
-| `batch_editor/BatchEditor.tsx`     | ArcGIS Experience Builder widget to select and batch-edit features on a map |
-| `map_viewer/MapView.tsx`           | React/Mapbox-based viewer with marker and viewport tracking                 |
-| `aqi_qaqc_toolkit.md`              | SQL-based QA/QC toolkit for spatial datasets in PostGIS                     |
+| File/Component                          | Description                                                                 |
+|-----------------------------------------|-----------------------------------------------------------------------------|
+| `llama_parser.py`                       | Uses Meta LLaMA to convert natural language real estate queries into JSON   |
+| `BatchEditor.tsx`                       | ArcGIS Experience Builder widget to select and batch-edit features on a map |
+| `MapView.tsx`                           | React/Mapbox-based viewer with marker and viewport tracking                 |
+| `aqi_qaqc_toolkit.md`                   | SQL-based QA/QC toolkit for spatial datasets in PostGIS                     |
 
 ---
 
@@ -22,7 +22,7 @@ This repository contains production-ready modules used in the Lottly AI system f
 - Wraps a Hugging Face LLaMA model
 - Converts user queries like “lots under 500k in flood zones” into structured JSON
 - Used to drive filters and logic in AI search environments  
-📄 [View Docs](./llama_parser/llama_parser_documentation.md)
+📄 [View Docs](https://github.com/mapowell/gis-programming-powell/blob/main/llama_parser_documentation.md)
 
 ---
 
@@ -30,7 +30,7 @@ This repository contains production-ready modules used in the Lottly AI system f
 - Used in ArcGIS Experience Builder
 - Lets users draw polygons to select features and apply batch field edits
 - Useful for QA, cleanup, and mass attribute correction workflows  
-📄 [View Docs](./batch_editor/batch_editor_documentation.md)
+📄 [View Docs](https://github.com/mapowell/gis-programming-powell/blob/main/batch_editor_documentation.md)
 
 ---
 
@@ -38,7 +38,7 @@ This repository contains production-ready modules used in the Lottly AI system f
 - React map component built with `react-map-gl`
 - Includes zoom/pan/marker UI
 - Automatically updates if latitude/longitude props change  
-📄 [View Docs](./map_viewer/mapview_documentation.md)
+📄 [View Docs](https://github.com/mapowell/gis-programming-powell/blob/main/mapview_documentation.md)
 
 ---
 
@@ -51,7 +51,7 @@ This repository contains production-ready modules used in the Lottly AI system f
   - Spatial outliers using `ST_Within()`
 - Includes `get_missing_hourly_readings()` function for sensor gap detection
 - Includes summary view + pie chart and heatmap visuals  
-📄 [View Docs](./aqi_qaqc_toolkit.md)
+📄 [View Docs](https://github.com/mapowell/gis-programming-powell/blob/main/aqi_qaqc_toolkit.md)
 
 ---
 
