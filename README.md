@@ -86,7 +86,7 @@ This figure displays how frequently each sensor recorded duplicate AQI readings 
 
 Requires `region_boundary` polygon layer.
 
-```
+```sql
 ### 🗺️ Figure: Points Outside Designated Region
 
 <img src="https://github.com/user-attachments/assets/1c31ba08-df7b-416f-b191-680b81eea7d6" 
